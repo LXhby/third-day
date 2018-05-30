@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+    ol,ul,li{margin:0;padding:0;list-style:none;}
+    img{border:none;vertical-align:top;}
+    #wrap{
+      width: 400px;
+      height: 300px;
+      margin:50px auto;
+    }
+    .btns{
+      height:30px;
+    }
+    .btns span{
+      float: left;
+      width: 75px;
+      height:30px;
+      line-height: 30px;
+      text-align: center;
+      margin-left: 5px;
+      background: gray;
+      cursor: pointer;
+
+    }
+    .btns span.on{
+      color: #fff;
+      background:#f60;
+    }
+    .banner{
+      position: relative;
+      width: 400px;
+      height:270px;
+    }
+    .banner ul{
+      position: relative;
+      width: 400px;
+      height:270px;
+    }
+    .banner li{
+      display: none;
+    }
+    .banner li.on{
+      position:absolute;
+      display: block;
+      width: 400px;
+      height:270px;
+      font-size: 100px;
+      line-height: 270px;
+      color:white;
+      text-align: center;
+    }
+    .top{
+      position: absolute;
+      top: 0px;
+      width: 400px;
+      height: 25px;
+      line-height: 25px;
+      text-align: center;
+      background:rgba(0,0,0,.5);
+    }
+    .bottom{
+      position: absolute;
+      bottom: 0px;
+      width: 400px;
+      height: 25px;
+      line-height: 25px;
+      text-align: center;
+      background:rgba(0,0,0,.5);
+    }
+    .left{
+      position: absolute;
+      top: 50%;
+      left: 0px;
+      width: 40px;
+      height: 25px;
+      line-height: 25px;
+      text-align: center;
+      background:rgba(0,0,0,.5);
+      cursor: pointer;
+
+    }
+    .right{
+      position: absolute;
+      top: 50%;
+      right: 0px;
+      width: 40px;
+      height: 25px;
+      line-height: 25px;
+      text-align: center;
+      background:rgba(0,0,0,.5);
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <div class="btns">
+      <span class="on">循环</span>
+      <span>单边</span>
+    </div>
+    <div class="banner">
+      <ul>
+        <li style="background:red;" class="on">一</li>
+        <li style="background:blue;">二</li>
+        <li style="background:yellow">三</li>
+        <li style="background:green">四</li>
+        <li style="background:gold">五</li>
+        <li style="background:teal">六</li>
+      </ul>
+      <p class="top">1/6</p>
+      <p class="bottom">第一页</p>
+      <p class="left">左</p>
+      <p class="right">右</p>
+    </div>
+  </div>
+</body>
+<script>
+  //1 实现点击切换 通过类选择器并定义num开始数字为一，点击数字递增，数字就是选择器的序号  2 实现临界值时回到开始状态  通过判断num是否超过选择器的length  3实现点击切换颜色变化  通过切换类名称实现  4 完成循环和单边两种模式 通过开关来判断 5数字上面的变化   6 底部文字的变化  通过数组来实现
+  var olis =document.getElementsByTagName("li");
+  var right = document.getElementsByClassName("right")[0];
+  var left = document.getElementsByClassName("left")[0];
+  var oTop = document.getElementsByClassName("top")[0];
+  var bottom = document.getElementsByClassName("bottom")[0];
+  var bottom =document.getElementsByClassName("bottom")[0];
+  var op = document.getElementsByTagName("span");
+  var arr = ["第一页","第二页","第三页","第四页","第五页","第六页"];
+  var num = 0;
+  var bool=true;
+  op[0].onclick =function(){
+      this.className = "on";
+      op[1].className = "";
+      bool=true;
+  }
+  op[1].onclick =function(){
+      this.className = "on";
+      op[0].className = "";
+      bool=false;
+  }
+  right.onclick = function () {
+      olis[num].className = "";
+      num+=1;
+      if (num>=olis.length){
+          if (bool){
+              num=0;
+          } else {
+              alert("最后一页");
+              num = olis.length-1;
+          }
+      }
+      olis[num].className = "on";
+      bottom.innerHTML = arr[num];
+      oTop.innerHTML = (num+1)+"/6";
+    }
+  left.onclick = function () {
+      olis[num].className = "";
+      num-=1;
+      if (num<0){
+          if (bool){
+              num=olis.length-1;
+          }else{
+              alert("第一页");
+              num = 0;
+          }
+      }
+      olis[num].className = "on";
+      bottom.innerHTML = arr[num];
+      oTop.innerHTML = (num+1)+"/6";
+  }
+</script>
+</html>

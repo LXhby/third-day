@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+    ol,ul,li{margin:0;padding:0;list-style:none;}
+    img{border:none;vertical-align:top;}
+    #wrap{
+      position: relative;
+      overflow: hidden;
+      width: 320px;
+      height: 275px;
+      margin: 100px auto;
+    }
+    #wrap > span{
+      display: inline-block;
+      width: 75px;
+      height: 25px;
+      color: white;
+      line-height: 25px;
+      text-align: center;
+      background-color: #000;
+      cursor: pointer;
+    }
+    #wrap .active{
+      background-color: #FE6600;
+    }
+    #box{
+      position: absolute;
+      top: 25px;
+      left: 0;
+      width: 1920px;
+      height: 240px;
+      }
+    #box li{
+      float: left;
+    }
+    #box li img{
+      width: 320px;
+    }
+    #btn{
+      position: absolute;
+      top: 25px;
+      left: 0;
+      width: 320px;
+      height: 240px;
+      background-color: rgba(0,0,0,0);
+    }
+    #btn p{
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 25px;
+      background-color: rgba(0,0,0,.5);
+      color:#fff;
+      text-align: center;
+    }
+    #btn #nav{
+      top: 0;
+    }
+    #btn #botton{
+      bottom: 0;
+    }
+    #btn span{
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      margin: auto 0;
+      width: 50px;
+      height: 25px;
+      background-color: rgba(0,0,0,.5);
+      color:#fff;
+      cursor: pointer;
+    }
+    #btn #prv{
+      right: 0;
+    }
+    #btn #next{
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <span id="loop" class="active">循环切换</span>
+    <span id="single">单边切换</span>
+    <ul id="box">
+      <li><img src="images/1.jpg" alt=""></li>
+      <li><img src="images/2.jpg" alt=""></li>
+      <li><img src="images/3.jpg" alt=""></li>
+      <li><img src="images/4.jpg" alt=""></li>
+      <li><img src="images/5.jpg" alt=""></li>
+      <li><img src="images/6.jpg" alt=""></li>
+    </ul>
+    <div id="btn">
+      <p id="nav">1/6</p>
+      <p id="botton">第一张图片</p>
+      <span id="prv">下一张</span>
+      <span id="next">上一张</span>
+    </div>
+  </div>
+</body>
+<script>
+  var myLoop = document.getElementById("loop"),
+      mySingle =document.getElementById("single"),
+      myPrv = document.getElementById("prv"),
+      myNext = document.getElementById("next"),
+      myBox = document.getElementById("box"),
+      myNav = document.getElementById("nav"),
+      myBotton = document.getElementById("botton"),
+      bool = false,
+      num = 1,
+      left = 0;
+  mySingle.onclick = function () {//单边切换
+      mySingle.className = "active";
+      myLoop.className = "";
+      bool = true;
+  }
+  myLoop.onclick = function () {//循环切换
+      myLoop.className = "active";
+      mySingle.className = "";
+      bool = false;
+  }
+  myPrv.onclick = function () {
+      left += -320;
+      num += 1;
+      if(left < -1600){
+          if(bool){
+              left = -1600;
+              alert("这已经是最后一张了");
+              num = 6;
+          }else{
+              left = 0;
+          }
+      }
+      myBox.style.left = left + "px";
+      if(num >6){
+          num = 1;
+      }
+      myNav.innerHTML = num + "/6";
+      myBotton.innerHTML = '第'+num+"张图片";
+  }
+  myNext.onclick = function () {
+      left += 320;
+      num --;
+      if(left > 0){
+          if(bool){
+              left = 0;
+              alert("不能再点了，这已经是第一张了!");
+              num = 1;
+          }else{
+              left = -1600;
+          }
+      }
+      myBox.style.left = left + "px";
+      if(num < 1){
+          num = 6;
+      }
+      myNav.innerHTML = num + "/6";
+      myBotton.innerHTML = '第'+num+"张图片";
+  }
+</script>
+</html>

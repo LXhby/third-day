@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    #main {
+      width: 1000px;
+      margin: 0 auto;
+      font-size: 14px;
+    }
+    .active{
+      background-color:pink;
+    }
+    span {
+      width: 50px;
+      height: 30px;
+      color: #fff;
+      text-align: center;
+      background: #000;
+      line-height: 30px;
+      display: inline-block;
+      font-size: 20px;
+      margin-right: 1px;
+      cursor: pointer;
+    }
+    </style>
+</head>
+<body>
+<div id="main">
+  <span id="max">+</span><span id="min">-</span><span id="loop">循环</span><span id="single" class="active">单边</span>
+  <p>
+    2016年5月12日上午9点，央视二套（CCTV-2）“财经资讯”栏目组到访潭州。此次“来自改革创新一线的报道”的主题采访在全国各地收集创新创业一线企业和团队典型，而潭州教育是湖南地区的第一家企业也是重要一站。
+  </p>
+  <p>
+    潭州教育成立于2007年，于2015年10月正式入驻长沙国家高新技术产业开发区麓谷芯城信息产业园区，是一家典型性的创新创业的“互联网+教育”企业。在市委市政府及长沙高新区的大力支持下，潭州教育得到了飞速的发展，已经成为一家具有一定影响力的跨品类的综合性直播在线教育企业。
+  </p>
+</div>
+</body>
+<script>
+  //1完成点击文字变大变小  2文字在单边状态时到临界值不变  3点击循环和单边颜色的切换 4 完成循环到临界值文字从12-20
+  //1是通过字符串拼接完成   2是通过if判断  3是通过类名的切换  4 是通过开关 有两种状态就设置开关，同时需要判断在临界值时候选择那种模式 因此有两个判断出现
+  var oMax = document.getElementById("max");
+  var oMin = document.getElementById("min");
+  var main = document.getElementById("main");
+  var loop = document.getElementById("loop");
+  var single = document.getElementById("single");
+  var bool = true;
+  var num = 14;
+  loop.onclick = function(){
+      loop.className = "active";
+      single.className = "";
+      bool=true;
+  }
+  single.onclick = function(){
+          single.className = "active";
+          loop.className = "";
+          bool=false;
+
+  }
+  oMax.onclick = function () {
+      num++;
+      if (num>20){
+          if (bool){
+              num = 20;
+          }else{
+              num = 12;
+          }
+      }
+      main.style.fontSize = num+"px";
+  }
+  console.log(num);
+  oMin.onclick = function () {
+      num--;
+      if (num<12){
+          if (bool){
+              num = 12;
+          } else{
+              num = 20;
+          }
+      }
+      main.style.fontSize = num+"px";
+  }
+</script>
+</html>
